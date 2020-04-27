@@ -1,0 +1,7 @@
+package com.cts.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface VendorRepository extends CrudRepository<T, ID> {
+
+}
