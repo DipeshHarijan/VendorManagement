@@ -1,0 +1,23 @@
+package com.cts;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@SpringBootApplication
+@EnableSwagger2
+public class VendorManagementApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(VendorManagementApplication.class, args);
+	}
+
+	public static final Contact DEAULT_CONTACT = new Contact("Dipesh", "www.dipesh.com", "dipesh@gmail.com");
+
+	public static final ApiInfo DEFAULT_API_INFO = new ApiInfo("Vendor API",
+			"Contains details of all the vendors","1.0.1","Must have 5 years experience in selling items",
+			DEAULT_CONTACT,"Standard API Licence", "www.apache.com");
+}
