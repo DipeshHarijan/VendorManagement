@@ -8,13 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.cts.entity.Vendor;
+
 
 @Entity(name="products")
 public class Product {
 	
-	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
-	private int productId;
+	private long productId;
 	
 	@Column(name="name")
 	private String productName;
@@ -25,7 +28,7 @@ public class Product {
 	@Column
 	private float price;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	private Vendor vendor;
 	
 
@@ -33,7 +36,7 @@ public class Product {
 		super();
 	}
 
-	public Product(int productId, String productName, String productDescription, float price, Vendor vendor) {
+	public Product(long productId, String productName, String productDescription, float price, Vendor vendor) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -42,7 +45,7 @@ public class Product {
 		this.vendor = vendor;
 	}
 
-	public int getProductId() {
+	public long getProductId() {
 		return productId;
 	}
 
@@ -81,6 +84,7 @@ public class Product {
 	public void setVendor(Vendor vendor) {
 		this.vendor = vendor;
 	}
+	
 
 	@Override
 	public String toString() {

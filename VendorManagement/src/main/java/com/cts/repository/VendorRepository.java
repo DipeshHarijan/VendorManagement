@@ -6,4 +6,5 @@ import com.cts.entity.Vendor;
 
 public interface VendorRepository extends CrudRepository<Vendor, Long> {
 
+
 }

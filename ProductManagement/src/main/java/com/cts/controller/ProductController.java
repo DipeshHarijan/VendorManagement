@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cts.entity.Product;
 import com.cts.service.ProductService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/products")
+@Api(value = "The Product Controller", description = "Rest controller for products")
 public class ProductController {
 
 	@Autowired
@@ -26,7 +29,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/{productId}")
-	Product getById(@PathVariable Integer productId) {
+	Product getById(@PathVariable Long productId) {
 		return service.getProductById(productId);
 	}
 
@@ -40,13 +43,13 @@ public class ProductController {
 		service.updateProduct(product);
 	}
 
-	@GetMapping("/{productName}")
+	@GetMapping("/name/{productName}")
 	List<Product> getProductsByName(@PathVariable String productName) {
 		return service.getProductsByName(productName);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{productId}")
-	void deleteProductById(@PathVariable Integer productId) {
+	void deleteProductById(@PathVariable Long productId) {
 		service.deleteProduct(productId);
 	}
 	

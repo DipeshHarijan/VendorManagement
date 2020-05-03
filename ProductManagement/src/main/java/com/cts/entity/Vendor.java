@@ -80,6 +80,12 @@ public class Vendor {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
+	
+
+	public Vendor(long vendorId) {
+		super();
+		this.vendorId = vendorId;
+	}
 
 	@Override
 	public String toString() {

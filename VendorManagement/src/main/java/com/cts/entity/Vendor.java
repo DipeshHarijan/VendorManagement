@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "This is the vendor model")
-@Entity(name = "Vendors")
+@Entity(name = "vendors")
 public class Vendor {
 	@ApiModelProperty(value = "A unique key for each vendor")
 	@Id
@@ -28,9 +28,7 @@ public class Vendor {
 	@ApiModelProperty(value = "Email Id of the vendor")
 	private String emailId;
 
-	public Vendor() {
-		super();
-	}
+	
 
 	public long getVendorId() {
 		return vendorId;
@@ -47,6 +45,15 @@ public class Vendor {
 		this.city = city;
 		this.mobileNo = mobileNo;
 		this.emailId = emailId;
+	}
+	
+
+	public Vendor() {
+		super();
+	}
+
+	public Vendor(long l) {
+		this.vendorId=l;
 	}
 
 	public String getCity() {

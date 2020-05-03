@@ -18,7 +18,7 @@ public class ProductService {
 		return (List<Product>) repo.findAll();
 	}
 
-	public Product getProductById(Integer productId) {
+	public Product getProductById(Long productId) {
 		return repo.findById(productId).orElseThrow(()->new RuntimeException("Item not found"));
 	}
 
@@ -26,7 +26,7 @@ public class ProductService {
 		repo.save(product);
 	}
 
-	public void deleteProduct(Integer productId) {
+	public void deleteProduct(Long productId) {
 		repo.deleteById(productId);
 		
 	}
