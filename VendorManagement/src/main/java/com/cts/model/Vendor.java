@@ -1,5 +1,7 @@
 package com.cts.model;
 
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -19,6 +21,9 @@ public class Vendor {
 
 	@ApiModelProperty(value = "Email Id of the vendor")
 	private String emailId;
+	
+	@ApiModelProperty(value = "List of products by vendor")
+	private List<Product> products;
 
 	public Vendor() {
 		super();
@@ -29,6 +34,15 @@ public class Vendor {
 	}
 	public long getVendorId() {
 		return vendorId;
+	}
+
+	
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
 	public void setVendorId(long vendorId) {

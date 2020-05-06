@@ -1,48 +1,39 @@
 package com.cts.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
-import com.cts.entity.Vendor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
-@Entity(name="products")
+@Entity(name = "products")
 public class Product {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id")
 	private long productId;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
+	@Pattern(regexp = "[a-zA-Z]{2}[A-Za-z\\s]*", message = "product name can only have alphabets with minimum length 2")
 	private String productName;
-	
-	@Column(name="description")
+
+	@Column(name = "description")
+	@Size(min = 5, message = "Description must have at least 5 character")
 	private String productDescription;
-	
-	@Column
+
+	@NotNull
 	private float price;
-	
-	@ManyToOne(cascade = CascadeType.DETACH)
-	private Vendor vendor;
-	
+
+	private long vendorId;
 
 	public Product() {
 		super();
-	}
-
-	public Product(long productId, String productName, String productDescription, float price, Vendor vendor) {
-		super();
-		this.productId = productId;
-		this.productName = productName;
-		this.productDescription = productDescription;
-		this.price = price;
-		this.vendor = vendor;
 	}
 
 	public long getProductId() {
@@ -77,20 +68,12 @@ public class Product {
 		this.price = price;
 	}
 
-	public Vendor getVendor() {
-		return vendor;
+	public long getVendorId() {
+		return vendorId;
 	}
 
-	public void setVendor(Vendor vendor) {
-		this.vendor = vendor;
+	public void setVendorId(long vendorId) {
+		this.vendorId = vendorId;
 	}
-	
 
-	@Override
-	public String toString() {
-		return "Product [productId=" + productId + ", productName=" + productName + ", productDescription="
-				+ productDescription + ", price=" + price + ", vendor=" + vendor + "]";
-	}
-	
-	
 }

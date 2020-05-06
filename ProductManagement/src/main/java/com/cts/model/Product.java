@@ -2,7 +2,7 @@ package com.cts.model;
 
 public class Product {
 
-	private int productId;
+	private long productId;
 
 	private String productName;
 
@@ -10,22 +10,13 @@ public class Product {
 
 	private float price;
 
-	private Vendor vendor;
+	private long vendorId;
 
 	public Product() {
 		super();
 	}
 
-	public Product(int productId, String productName, String productDescription, float price, Vendor vendor) {
-		super();
-		this.productId = productId;
-		this.productName = productName;
-		this.productDescription = productDescription;
-		this.price = price;
-		this.vendor = vendor;
-	}
-
-	public int getProductId() {
+	public long getProductId() {
 		return productId;
 	}
 
@@ -57,18 +48,12 @@ public class Product {
 		this.price = price;
 	}
 
-	public Vendor getVendor() {
-		return vendor;
+	public long getVendorId() {
+		return vendorId;
 	}
 
-	public void setVendor(Vendor vendor) {
-		this.vendor = vendor;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [productId=" + productId + ", productName=" + productName + ", productDescription="
-				+ productDescription + ", price=" + price + ", vendor=" + vendor + "]";
+	public void setVendorId(long vendorId) {
+		this.vendorId = vendorId;
 	}
 
 }

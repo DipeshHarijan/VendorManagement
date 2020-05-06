@@ -11,6 +11,7 @@ import com.cts.entity.Product;
 public interface ProductManagementRepository extends CrudRepository<Product, Long> {
 
 	List<Product> findAllByProductName(String productName);
-	List<Product> findAllByVendorVendorId(Long id);
+
+	List<Product> findAllByVendorId(Long vendorId);
 
 }

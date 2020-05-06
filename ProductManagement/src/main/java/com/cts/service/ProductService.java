@@ -40,7 +40,7 @@ public class ProductService {
 	}
 
 	public List<Product> getProductByVendorId(Long vendorId) {
-		return repo.findAllByVendorVendorId(vendorId);
+		return repo.findAllByVendorId(vendorId);
 		
 	}
 

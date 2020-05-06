@@ -2,6 +2,8 @@ package com.cts.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,12 +36,12 @@ public class ProductController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/add")
-	void addProduct(@RequestBody Product product) {
+	void addProduct(@Valid @RequestBody Product product) {
 		service.addProduct(product);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	void updateProduct(@RequestBody Product product) {
+	void updateProduct(@Valid @RequestBody Product product) {
 		service.updateProduct(product);
 	}
 

@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -28,25 +27,12 @@ public class VendorManagementApplication {
 
 	@Bean
 	Docket configureSwagger() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.paths(PathSelectors.ant("/vendor/**"))
-				.build()
-				
-				.apiInfo(new ApiInfo("Vendor API Documentation",
-						"A Sample API for Vendors",
-						"1.0.0",
-						"Shopping is Fun",
-						new Contact("Dipesh", "www.dipeshcorporation.com", "dipesh@gmail.com"), 
-						"Standard API License",
-						"www.dipesh.com",
-						Collections.emptyList()));
-				
-				
+		return new Docket(DocumentationType.SWAGGER_2).select().paths(PathSelectors.ant("/vendor/**")).build()
+
+				.apiInfo(new ApiInfo("Vendor API Documentation", "A Sample API for Vendors", "1.0.0", "Shopping is Fun",
+						new Contact("Dipesh", "www.dipeshcorporation.com", "dipesh@gmail.com"), "Standard API License",
+						"www.dipesh.com", Collections.emptyList()));
+
 	}
-	
-	@Bean
-	RestTemplate getRestTemplate(){
-		return new RestTemplate();
-	}
+
 }
