@@ -1,10 +1,7 @@
 package com.cts.controller;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
@@ -21,9 +18,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.cts.controller.VendorController;
 import com.cts.entity.Vendor;
 import com.cts.service.VendorService;
+
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(VendorController.class)
