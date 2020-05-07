@@ -3929,3 +3929,4 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.springfra
 2020-05-07 15:12:23,212 [Worker-335: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
 2020-05-07 15:12:23,214 [Worker-335: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2020-05-07 15:12:23,214 [Worker-335: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory E:\New CTS files\eKart by cts\VendorManagement\src\test\resources
+2020-05-07 17:39:56,273 [Worker-5: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
