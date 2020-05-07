@@ -1,6 +1,7 @@
 package com.cts.controller;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -50,6 +51,20 @@ public class VendorControllerTest {
 	}
 	
 	@Test
+	public void getVendorByIdTest() throws Exception{
+		when(vendorService.getVendorById(1)).thenReturn(new Vendor(1,"Vendor1","City1","8272828873","vendor@gmail.com"));
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.get("/vendor/{vendorId}",1)
+				.accept(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().json("{vendorId:1,vendorName:Vendor1,city:City1,mobileNo:\"8272828873\",emailId:vendor@gmail.com}"))
+				.andReturn();
+	}
+	
+	@Test
 	public void addVendorTest() throws Exception{
 		
 		
@@ -61,6 +76,36 @@ public class VendorControllerTest {
 		
 		MvcResult result = mockMvc.perform(request)
 				.andExpect(status().is(200))
+				.andReturn();
+	}
+	
+	@Test
+	public void updateVendorTest() throws Exception{
+		
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.put("/vendor")
+				.accept(MediaType.APPLICATION_JSON)
+				.content("{\"vendorId\":1000, \"vendorName\": \"Ravi\", \"city\": \"Mirpur\", \"mobileNo\": \"9999999999\", \"emailId\": \"ravi@gmail.com\"}")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(request)
+				.andExpect(status().is(200))
+				.andReturn();
+	}
+	
+	@Test
+	public void deleteVendorTest() throws Exception{
+		//when(vendorService.getVendorById(1)).thenReturn(new Vendor(1,"Vendor1","City1","8272828873","vendor@gmail.com"));
+		//doNothing().when(vendorService.deleteVendor(1));
+		
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.delete("/vendor/delete/{vendorId}",1);
+				//.accept(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(request)
+				.andExpect(status().isOk())
 				.andReturn();
 	}
 

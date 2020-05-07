@@ -16,8 +16,9 @@ import com.cts.model.Product;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+//import lombok.Data;
 
-
+//@Data
 @ApiModel(description = "This is the vendor model")
 @Entity(name = "vendors")
 public class Vendor {
