@@ -32,9 +32,9 @@ public class ProductManagementApplication {
 						"A Sample API for Products",
 						"1.0.0",
 						"Shopping is Fun",
-						new Contact("Dipesh", "www.dipeshcorporation.com", "dipesh@gmail.com"), 
+						new Contact("Nikhila", "www.nikhilacorporation.com", "nikhiladamaraju30@gmail.com"), 
 						"Standard API License",
-						"www.dipesh.com",
+						"www.nikhila.com",
 						Collections.emptyList()));
 				
 				

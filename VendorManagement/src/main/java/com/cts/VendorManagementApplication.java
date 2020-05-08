@@ -30,8 +30,8 @@ public class VendorManagementApplication {
 		return new Docket(DocumentationType.SWAGGER_2).select().paths(PathSelectors.ant("/vendor/**")).build()
 
 				.apiInfo(new ApiInfo("Vendor API Documentation", "A Sample API for Vendors", "1.0.0", "Shopping is Fun",
-						new Contact("Dipesh", "www.dipeshcorporation.com", "dipesh@gmail.com"), "Standard API License",
-						"www.dipesh.com", Collections.emptyList()));
+						new Contact("nikhila", "www.nikhilacorporation.com", "nikhiladamaraju30@gmail.com"), "Standard API License",
+						"www.nikhila.com", Collections.emptyList()));
 
 	}
 
