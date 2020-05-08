@@ -44,7 +44,7 @@ public class VendorController {
 	}
 
 	@ApiOperation(value = "Update a vendor's details", consumes = "An existing vendor in JSON", notes = "Hit this URL to update a vendor's details")
-	@RequestMapping(method = RequestMethod.PUT, value = "/update/{vendorId}")
+	@RequestMapping(method = RequestMethod.PUT)
 	void updateVendor(@Valid @RequestBody Vendor vendor) {
 		service.updateVendor(vendor);
 
