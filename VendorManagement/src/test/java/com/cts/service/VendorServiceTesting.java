@@ -48,7 +48,6 @@ public class VendorServiceTesting {
 	
 }
 
-//Service testing is done
 	
 	
 
@@ -62,3 +61,12 @@ public class VendorServiceTesting {
 	
 	
 	
+	//	public void deleteVendorTest() {
+//		Vendor vendor=new Vendor(1L, "Mahadeva","Gadag","8971364833","mahadeva@gmail.com");
+//		when(repo.deleteById(1L)).thenReturn(Optional.of(vendor));
+//		//
+//	}
+//assertThat(service.addVendor(vendor)).isEqualTo(vendor);
+//assertEquals(service.addVendor(vendor),vendor);
+//assertThat(service.addVendor(vendor)).isEqualTo(vendor);
+
