@@ -27,8 +27,8 @@ public class VendorService {
 		return vendors;
 	}
 
-	public void addVendor(Vendor vendor) {
-		repo.save(vendor);
+	public Vendor addVendor(Vendor vendor) {
+		return repo.save(vendor);
 	}
 
 	public Vendor getVendorById(long vendorId) {
