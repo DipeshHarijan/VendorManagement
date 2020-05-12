@@ -23,26 +23,24 @@ public class VendorService {
 	public List<Vendor> getAll() {
 		List<Vendor> vendors = (List<Vendor>) repo.findAll();
 		List<Product> products = psp.getAll();
-		for (Vendor vendor : vendors) {
-			long vendorId = vendor.getVendorId();
+		vendors.stream().forEach(vendor -> {
 			ArrayList<Product> list = new ArrayList<>();
-			for (Product product : products) {
-				if (vendorId == product.getVendorId()) {
+			products.stream().forEach(product -> {
+				if (vendor.getVendorId() == product.getVendorId()) {
 					list.add(product);
 				}
-			}
+			});
 			vendor.setProducts(list);
-		}
+		});
 		return vendors;
 	}
 
 	public List<Vendor> getOnlyVendors() {
 		List<Vendor> vendors = (List<Vendor>) repo.findAll();
-		for(Vendor vendor: vendors) {
-			vendor.setProducts(Arrays.asList(new Product(1001,"Fallback Product", "Product microservice unreachable", 0)));
-		}
+		vendors.stream().forEach(vendor -> vendor.setProducts(
+				Arrays.asList(new Product(1001, "Fallback Product", "Product microservice unreachable", 0))));
 		return vendors;
-		
+
 	}
 
 	public Vendor addVendor(Vendor vendor) {
