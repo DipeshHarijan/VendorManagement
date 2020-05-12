@@ -7,11 +7,13 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.entity.Vendor;
@@ -32,40 +34,40 @@ public class VendorController {
 	VendorService service;
 
 	@ApiOperation(value = "Add a vendor", consumes = "A new vendor is JSON", notes = "Hit this URL to insert a new vendor's details")
-	@RequestMapping(method = RequestMethod.POST, value = "/add")
-	void addVendor(@Valid @RequestBody Vendor vendor) {
+	@PostMapping(value = "/add")
+	public void addVendor(@Valid @RequestBody Vendor vendor) {
 		service.addVendor(vendor);
 	}
 
 	@ApiOperation(value = "Delete a vendor", consumes = "An existing vendor id", notes = "Hit this URL to delete a vendor's details")
-	@RequestMapping(method = RequestMethod.DELETE, value = "/delete/{vendorId}")
-	void deleteVendorById(@PathVariable long vendorId) {
+	@DeleteMapping(value = "/delete/{vendorId}")
+	public void deleteVendorById(@PathVariable long vendorId) {
 		service.deleteVendor(vendorId);
 	}
 
 	@ApiOperation(value = "Update a vendor's details", consumes = "An existing vendor in JSON", notes = "Hit this URL to update a vendor's details")
-	@RequestMapping(method = RequestMethod.PUT)
-	void updateVendor(@Valid @RequestBody Vendor vendor) {
+	@PutMapping
+	public void updateVendor(@Valid @RequestBody Vendor vendor) {
 		service.updateVendor(vendor);
 
 	}
 
 	@ApiOperation(value = "Retrieve a vendor's details", produces = "A vendor's details if it exists", notes = "Hit this URL to get a vendor's details")
-	@RequestMapping(method = RequestMethod.GET, value = "/get/{vendorId}")
-	Vendor getVendorById(@PathVariable long vendorId) {
+	@GetMapping(value = "/get/{vendorId}")
+	public Vendor getVendorById(@PathVariable long vendorId) {
 		return service.getVendorById(vendorId);
 	}
 
+	@HystrixCommand(fallbackMethod = "vendorsOnly")
 	@ApiOperation(value = "Get all vendors", produces = "A list of vendors", notes = "Hit this URL to get all vendors details")
-	@RequestMapping(method = RequestMethod.GET, value = "/getAll")
-	List<Vendor> getAll() {
+	@GetMapping(value = "/getAll")
+	public List<Vendor> getAll() {
 		return service.getAll();
 	}
-
-//	@RequestMapping(method = RequestMethod.GET, value = "/products/{vendorId}")
-//	public List<Product> getProducts(@PathVariable Long vendorId) {
-//		return service.getProducts(vendorId);
-//	}
+	
+	public List<Vendor> vendorsOnly(){
+		return service.getOnlyVendors();
+	}
 
 	@HystrixCommand(fallbackMethod = "fallback")
 	@GetMapping("/{vendorId}")
@@ -74,9 +76,7 @@ public class VendorController {
 	}
 
 	public List<Product> fallback(@PathVariable(name = "vendorId") Long vendorId) {
-		System.out.println("Server down");
-		return Arrays.asList(
-				new Product(1, "Fallback product", "This is a fallback product, means the server is down", 199));
+		return Arrays.asList(new Product(1001,"Fallback Product", "Product microservice unreachable", 0, vendorId));
 	}
 
 }
