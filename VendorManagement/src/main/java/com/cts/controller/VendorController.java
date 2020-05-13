@@ -6,15 +6,20 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.entity.Vendor;
+import com.cts.exception.VendorNotFoundException;
 import com.cts.model.Product;
 import com.cts.service.VendorService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -22,7 +27,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@CrossOrigin
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
 @RequestMapping(value = "/vendor")
 @Api(value = "The Vendor Controller", description = "Rest controller for vendor")
@@ -31,9 +36,10 @@ public class VendorController {
 	@Autowired
 	VendorService service;
 
+
 	@ApiOperation(value = "Add a vendor", consumes = "A new vendor is JSON", notes = "Hit this URL to insert a new vendor's details")
-	@RequestMapping(method = RequestMethod.POST, value = "/add")
-	void addVendor(@Valid @RequestBody Vendor vendor) {
+	@RequestMapping(method = RequestMethod.POST,value = "/add")
+	public void addVendor(@Valid @RequestBody Vendor vendor) {
 		service.addVendor(vendor);
 	}
 
@@ -49,12 +55,22 @@ public class VendorController {
 		service.updateVendor(vendor);
 
 	}
-
-	@ApiOperation(value = "Retrieve a vendor's details", produces = "A vendor's details if it exists", notes = "Hit this URL to get a vendor's details")
-	@RequestMapping(method = RequestMethod.GET, value = "/get/{vendorId}")
-	Vendor getVendorById(@PathVariable long vendorId) {
-		return service.getVendorById(vendorId);
+	
+	@GetMapping(value = "/get/{vendorId}") 
+	public ResponseEntity<Vendor> getVendorById (@PathVariable long vendorId)
+	{
+		Vendor ven = service.getVendorById(vendorId); 
+	    if(ven == null) {
+	         throw new VendorNotFoundException("Invalid employee id : " +vendorId);
+	    }
+	    return new ResponseEntity<Vendor>(ven, HttpStatus.OK);
 	}
+
+//	@ApiOperation(value = "Retrieve a vendor's details", produces = "A vendor's details if it exists", notes = "Hit this URL to get a vendor's details")
+//	@RequestMapping(method = RequestMethod.GET, value = "/get/{vendorId}")
+//	Vendor getVendorById(@PathVariable long vendorId) {
+//		return service.getVendorById(vendorId);
+//	}
 
 	@ApiOperation(value = "Get all vendors", produces = "A list of vendors", notes = "Hit this URL to get all vendors details")
 	@RequestMapping(method = RequestMethod.GET, value = "/getAll")

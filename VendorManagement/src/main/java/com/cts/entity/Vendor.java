@@ -1,6 +1,6 @@
 package com.cts.entity;
 
-
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -17,22 +16,22 @@ import com.cts.model.Product;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-//import lombok.Data;
+import lombok.Data;
 
-//@Data
+@Data
 @ApiModel(description = "This is the vendor model")
 @Entity(name = "vendors")
-public class Vendor {
+public class Vendor implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@ApiModelProperty(value = "A unique key for each vendor")
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long vendorId;
 
 	@ApiModelProperty(value = "Name of the vendor")
-	@NotNull(message = "Name cannot be null")
 	@Pattern(regexp = "[a-zA-Z]{2}[A-Za-z\\s]*", message = "name can only have alphabets with minimum length 2")
 	@Size(min = 2, message = "name must have atleast 2 characters")
-	private String vendorName;
+	private String name;
 
 	@Pattern(regexp = "[a-zA-Z]{2}[A-Za-z\\s]*", message = "city can only have alphabets")
 	@ApiModelProperty(value = "Address city of the vendor")
@@ -65,21 +64,35 @@ public class Vendor {
 		this.vendorId = vendorId;
 	}
 
-	public Vendor(long vendorId, String vendorName, String city, String mobileNo, String emailId) {
+	public Vendor() {
+		super();
+	}
+
+	public Vendor(long vendorId,
+			@Pattern(regexp = "[a-zA-Z]{2}[A-Za-z\\s]*", message = "name can only have alphabets with minimum length 2") @Size(min = 2, message = "name must have atleast 2 characters") String name,
+			@Pattern(regexp = "[a-zA-Z]{2}[A-Za-z\\s]*", message = "city can only have alphabets") String city,
+			@Pattern(regexp = "[1-9]{1}[0-9]{9}", message = "mobile number must be of 10 digits and should not begin with 0") String mobileNo,
+			@Email String emailId) {
 		super();
 		this.vendorId = vendorId;
-		this.vendorName = vendorName;
+		this.name = name;
 		this.city = city;
 		this.mobileNo = mobileNo;
 		this.emailId = emailId;
 	}
 
-	public Vendor() {
+	public Vendor(long vendorId,
+			@Pattern(regexp = "[a-zA-Z]{2}[A-Za-z\\s]*", message = "name can only have alphabets with minimum length 2") @Size(min = 2, message = "name must have atleast 2 characters") String name,
+			@Pattern(regexp = "[a-zA-Z]{2}[A-Za-z\\s]*", message = "city can only have alphabets") String city,
+			@Pattern(regexp = "[1-9]{1}[0-9]{9}", message = "mobile number must be of 10 digits and should not begin with 0") String mobileNo,
+			@Email String emailId, List<Product> products) {
 		super();
-	}
-
-	public Vendor(long l) {
-		this.vendorId = l;
+		this.vendorId = vendorId;
+		this.name = name;
+		this.city = city;
+		this.mobileNo = mobileNo;
+		this.emailId = emailId;
+		this.products = products;
 	}
 
 	public String getCity() {
@@ -90,12 +103,12 @@ public class Vendor {
 		this.city = city;
 	}
 
-	public String getVendorName() {
-		return vendorName;
+	public String getName() {
+		return name;
 	}
 
-	public void setVendorName(String vendorName) {
-		this.vendorName = vendorName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getMobileNo() {

@@ -10,15 +10,10 @@ public class Product {
 
 	private float price;
 
+	private long vendorId;
+
 	public Product() {
 		super();
-	}
-
-	public Product(long i, String string, String string2, float j) {
-		this.productId = i;
-		this.productName = string;
-		this.productDescription = string2;
-		this.price = j;
 	}
 
 	public long getProductId() {
@@ -52,5 +47,31 @@ public class Product {
 	public void setPrice(float price) {
 		this.price = price;
 	}
+
+	public long getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(long vendorId) {
+		this.vendorId = vendorId;
+	}
+
+	public Product(long productId, String productName, String productDescription, float price) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.productDescription = productDescription;
+		this.price = price;
+	}
+
+	public Product(long productId, String productName, String productDescription, float price, long vendorId) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.productDescription = productDescription;
+		this.price = price;
+		this.vendorId = vendorId;
+	}
+
 
 }

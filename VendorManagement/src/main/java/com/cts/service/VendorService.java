@@ -1,6 +1,8 @@
 package com.cts.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,16 @@ public class VendorService {
 
 	public List<Vendor> getAll() {
 		List<Vendor> vendors = (List<Vendor>) repo.findAll();
-		for (Vendor vendor : vendors) {
-			long vendorId = vendor.getVendorId();
-			vendor.setProducts(psp.getProduct(vendorId));
-		}
+		List<Product> products = psp.getAll();
+		vendors.stream().forEach(vendor -> {
+			ArrayList<Product> pro = new ArrayList<>();
+			products.stream().forEach(product -> {
+				if (vendor.getVendorId() == product.getVendorId()) {
+					pro.add(product);
+				}
+			});
+			vendor.setProducts(pro);
+		});
 		return vendors;
 	}
 
@@ -32,8 +40,14 @@ public class VendorService {
 	}
 
 	public Vendor getVendorById(long vendorId) {
-		return repo.findById(vendorId).get();
-	}
+		Vendor vendors = repo.findById(vendorId).get();
+			 vendorId = vendors.getVendorId();
+			vendors.setProducts(psp.getProduct(vendorId));
+			return vendors;
+		}
+		
+//		return repo.findById(vendorId).get();
+	
 
 	public void updateVendor(Vendor vendor) {
 		repo.save(vendor);
