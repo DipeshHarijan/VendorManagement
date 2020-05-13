@@ -40,11 +40,8 @@ public class VendorService {
 	}
 
 	public Vendor getVendorById(long vendorId) {
-		Vendor vendors = repo.findById(vendorId).get();
-			 vendorId = vendors.getVendorId();
-			vendors.setProducts(psp.getProduct(vendorId));
-			return vendors;
-		}
+		return repo.findById(vendorId).orElse(new Vendor());
+	}
 		
 //		return repo.findById(vendorId).get();
 	
