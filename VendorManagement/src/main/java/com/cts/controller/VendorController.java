@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.entity.Vendor;
+import com.cts.exception.VendorNotFoundException;
 import com.cts.model.Product;
 import com.cts.service.VendorService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -55,7 +56,11 @@ public class VendorController {
 	@ApiOperation(value = "Retrieve a vendor's details", produces = "A vendor's details if it exists", notes = "Hit this URL to get a vendor's details")
 	@GetMapping(value = "/get/{vendorId}")
 	public Vendor getVendorById(@PathVariable long vendorId) {
-		return service.getVendorById(vendorId);
+		Vendor vendor = service.getVendorById(vendorId);
+		if(vendor == null) {
+			throw new VendorNotFoundException("vendorId:"+vendorId);
+		}
+		return vendor;
 	}
 
 	@HystrixCommand(fallbackMethod = "vendorsOnly")

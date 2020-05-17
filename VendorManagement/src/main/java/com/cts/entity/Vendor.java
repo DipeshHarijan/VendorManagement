@@ -16,8 +16,10 @@ import com.cts.model.Product;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @ApiModel(description = "This is the vendor model")
 @Entity(name = "vendors")
 public class Vendor {
@@ -46,26 +48,6 @@ public class Vendor {
 	@Transient
 	private List<Product> products;
 
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	public long getVendorId() {
-		return vendorId;
-	}
-
-	public void setVendorId(long vendorId) {
-		this.vendorId = vendorId;
-	}
-
-	public Vendor() {
-		super();
-	}
-
 	public Vendor(long vendorId,
 			@Pattern(regexp = "[a-zA-Z]{2}[A-Za-z\\s]*", message = "name can only have alphabets with minimum length 2") @Size(min = 2, message = "name must have atleast 2 characters") String name,
 			@Pattern(regexp = "[a-zA-Z]{2}[A-Za-z\\s]*", message = "city can only have alphabets") String city,
@@ -78,51 +60,4 @@ public class Vendor {
 		this.mobileNo = mobileNo;
 		this.emailId = emailId;
 	}
-
-	public Vendor(long vendorId,
-			@Pattern(regexp = "[a-zA-Z]{2}[A-Za-z\\s]*", message = "name can only have alphabets with minimum length 2") @Size(min = 2, message = "name must have atleast 2 characters") String name,
-			@Pattern(regexp = "[a-zA-Z]{2}[A-Za-z\\s]*", message = "city can only have alphabets") String city,
-			@Pattern(regexp = "[1-9]{1}[0-9]{9}", message = "mobile number must be of 10 digits and should not begin with 0") String mobileNo,
-			@Email String emailId, List<Product> products) {
-		super();
-		this.vendorId = vendorId;
-		this.name = name;
-		this.city = city;
-		this.mobileNo = mobileNo;
-		this.emailId = emailId;
-		this.products = products;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getMobileNo() {
-		return mobileNo;
-	}
-
-	public void setMobileNo(String mobileNo) {
-		this.mobileNo = mobileNo;
-	}
-
-	public String getEmailId() {
-		return emailId;
-	}
-
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-
 }

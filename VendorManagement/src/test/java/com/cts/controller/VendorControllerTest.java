@@ -29,8 +29,6 @@ public class VendorControllerTest {
 
 	@MockBean
 	private VendorService vendorService;
-	
-	private Vendor vendor = new Vendor(1001, "Dipesh", "Los Angeles", "9876543210", "dipesh@gmail.com");
 
 	@Test
 	public void getAllTest() throws Exception {
@@ -39,8 +37,9 @@ public class VendorControllerTest {
 
 		RequestBuilder request = MockMvcRequestBuilders.get("/vendor/getAll").accept(MediaType.APPLICATION_JSON);
 
-		mockMvc.perform(request).andExpect(status().isOk()).andExpect(content()
-				.json("[{vendorId:1,name:Vendor1,city:City1,mobileNo:\"8272828873\",emailId:vendor@gmail.com}]"))
+		mockMvc.perform(request).andExpect(status().isOk())
+				.andExpect(content().json(
+						"[{vendorId:1,name:Vendor1,city:City1,mobileNo:\"8272828873\",emailId:vendor@gmail.com}]"))
 				.andReturn();
 	}
 
@@ -52,8 +51,8 @@ public class VendorControllerTest {
 		RequestBuilder request = MockMvcRequestBuilders.get("/vendor/{vendorId}", 1).accept(MediaType.APPLICATION_JSON);
 
 		mockMvc.perform(request).andExpect(status().isOk())
-				.andExpect(content().json(
-						"{vendorId:1,name:Vendor1,city:City1,mobileNo:\"8272828873\",emailId:vendor@gmail.com}"))
+				.andExpect(content()
+						.json("{vendorId:1,name:Vendor1,city:City1,mobileNo:\"8272828873\",emailId:vendor@gmail.com}"))
 				.andReturn();
 	}
 

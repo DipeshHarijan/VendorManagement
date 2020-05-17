@@ -47,8 +47,8 @@ public class VendorService {
 		return repo.save(vendor);
 	}
 
-	public Vendor getVendorById(long vendorId) {
-		return repo.findById(vendorId).orElse(new Vendor());
+	public com.cts.entity.Vendor getVendorById(long vendorId) {
+		return repo.findById(vendorId).orElse(null);
 	}
 
 	public Vendor updateVendor(Vendor vendor) {
@@ -57,6 +57,7 @@ public class VendorService {
 
 	public void deleteVendor(long vendorId) {
 		repo.deleteById(vendorId);
+		;
 	}
 
 	public List<Product> getProductByVendorId(Long vendorId) {
